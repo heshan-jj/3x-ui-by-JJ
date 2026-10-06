@@ -1,13 +1,11 @@
-/* Overview page — trend-first layout. Every colour comes from the AntD theme
-   tokens so light / dark / ultra-dark keep working and the sidebar is untouched.
-   Set --ov-accent once here if you want a fixed accent instead of the primary. */
+/* Overview page — Notion-inspired modern dashboard styling */
 
 .index-page {
   --ov-accent: var(--ant-color-primary);
   --ov-line: var(--ant-color-border);
   --ov-label: var(--ant-color-text-secondary);
   --ov-faint: var(--ant-color-text-tertiary);
-  --ov-gap: 12px;
+  --ov-gap: 14px;
   --ov-pad: 20px;
 }
 
@@ -18,7 +16,7 @@
   }
 
   .index-page {
-    --ov-gap: 8px;
+    --ov-gap: 10px;
     --ov-pad: 14px;
   }
 }
@@ -29,51 +27,59 @@
   gap: var(--ov-gap);
 }
 
-/* — action bar — */
+/* ─── Action bar ─────────────────────────────────────────────────── */
 
 .ov-bar {
   display: flex;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
+  padding: 4px 0;
 }
 
 .ov-state {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 4px 12px;
+  padding: 5px 14px;
   border: 1px solid var(--ov-line);
+  background: var(--bg-card);
   border-radius: 999px;
   font-size: 13px;
+  font-weight: 500;
   color: var(--ant-color-text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
 .ov-state-dot {
   position: relative;
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: currentColor;
   flex: none;
 }
 
+.ov-state[data-state='running'] .ov-state-dot {
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+}
+
 .ov-state[data-state='running'] .ov-state-dot::after {
   content: '';
   position: absolute;
-  inset: -1px;
+  inset: -2px;
   border-radius: 50%;
   border: 1px solid currentColor;
-  animation: ovPulse 1.6s infinite ease-out;
+  animation: ovPulse 1.8s infinite ease-out;
 }
 
 @keyframes ovPulse {
   0% {
-    transform: scale(0.9);
-    opacity: 0.5;
+    transform: scale(0.8);
+    opacity: 0.6;
   }
   100% {
-    transform: scale(2.4);
+    transform: scale(2.6);
     opacity: 0;
   }
 }
@@ -86,13 +92,16 @@
 
 .ov-state-version,
 .ov-panel-version {
-  padding: 0;
-  border: 0;
-  background: transparent;
+  padding: 2px 6px;
+  border: 1px solid var(--ov-line);
+  border-radius: 4px;
+  background: rgba(128, 128, 128, 0.05);
   font: inherit;
+  font-size: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   cursor: pointer;
   color: var(--ov-label);
-  transition: color 0.2s;
+  transition: all 0.15s ease;
 }
 
 .ov-state-version:hover,
@@ -100,16 +109,14 @@
 .ov-panel-version:hover,
 .ov-panel-version:focus-visible {
   color: var(--ant-color-primary);
-}
-
-.ov-panel-version {
-  font-size: 12px;
-  color: var(--ov-faint);
+  border-color: var(--ant-color-primary-border);
+  background: rgba(35, 131, 226, 0.08);
 }
 
 .ov-update-tag {
   cursor: pointer;
   margin-inline-end: 0;
+  border-radius: 4px !important;
 }
 
 .ov-error-detail {
@@ -121,21 +128,21 @@
   margin-inline-start: auto;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .ov-bar-actions {
     margin-inline-start: 0;
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 }
 
 .ov-bar-sep {
   width: 1px;
-  height: 20px;
+  height: 18px;
   background: var(--ov-line);
   margin: 0 4px;
 }
@@ -145,12 +152,18 @@
   align-items: center;
   gap: 8px;
   font-size: 12.5px;
+  font-weight: 500;
+  padding: 6px 12px;
+  background: rgba(255, 169, 64, 0.08);
+  border-radius: 6px;
+  border: 1px solid currentColor;
 }
 
 .ov-health-mark {
   width: 14px;
-  height: 1px;
+  height: 2px;
   background: currentColor;
+  border-radius: 1px;
   flex: none;
 }
 
@@ -167,23 +180,35 @@
   );
 }
 
-/* — shared type — */
+/* ─── Shared typography ──────────────────────────────────────────── */
 
 .ov-kicker {
   font-size: 11px;
-  letter-spacing: 0.08em;
+  font-weight: 600;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--ov-label);
 }
 
-.ov-kicker-icon {
-  display: flex;
+.ov-kicker-group {
+  display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
+}
+
+.ov-card-icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  font-size: 13px;
+  flex: none;
 }
 
 .ov-sub {
-  font-size: 12.5px;
+  font-size: 12px;
   margin-top: 4px;
   color: var(--ov-faint);
 }
@@ -192,7 +217,7 @@
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-/* — vitals tiles — */
+/* ─── Vitals tiles ───────────────────────────────────────────────── */
 
 .ov-vitals {
   display: grid;
@@ -214,64 +239,130 @@
 
 .ov-tile {
   overflow: hidden;
+  border-radius: 8px !important;
+  border: 1px solid var(--ov-line) !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease !important;
+}
+
+.ov-tile:hover {
+  border-color: var(--ant-color-primary-border) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+}
+
+.index-page.is-dark .ov-tile:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
 }
 
 .ov-tile-head {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 14px var(--ov-pad) 0;
-  color: var(--ov-accent);
+  justify-content: space-between;
+  padding: 16px var(--ov-pad) 0;
 }
 
-.ov-tile-icon {
+.ov-tile-badge-group {
   display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.ov-tile-icon-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
   font-size: 15px;
+  flex: none;
+}
+
+.ov-tile-gauge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.ov-gauge-bg {
+  stroke: rgba(128, 128, 128, 0.15);
+}
+
+.ov-gauge-bar {
+  transition: stroke-dashoffset 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .ov-tile-value {
   display: flex;
   align-items: baseline;
   gap: 4px;
-  padding: 12px var(--ov-pad) 0;
+  padding: 10px var(--ov-pad) 0;
 }
 
 .ov-tile-number {
-  font-size: 34px;
-  font-weight: 600;
+  font-size: 32px;
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   color: var(--ant-color-text);
   font-variant-numeric: tabular-nums;
 }
 
 .ov-tile-unit {
   font-size: 14px;
+  font-weight: 500;
   color: var(--ov-label);
 }
 
 .ov-tile-detail {
-  padding: 5px var(--ov-pad) 0;
-  font-size: 12px;
+  padding: 6px var(--ov-pad) 0;
+  font-size: 11.5px;
   color: var(--ov-label);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ov-tile-foot {
   display: flex;
   justify-content: space-between;
   gap: 8px;
-  padding: 14px var(--ov-pad) 0;
+  padding: 12px var(--ov-pad) 0;
+}
+
+.ov-tile-chip {
+  display: inline-flex;
+  align-items: center;
   font-size: 10px;
-  letter-spacing: 0.06em;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--ov-faint);
+  background: rgba(128, 128, 128, 0.07);
+  padding: 2px 7px;
+  border-radius: 4px;
 }
 
 .ov-tile-chart {
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
-/* — throughput + connections — */
+/* ─── Throughput + connections cards ─────────────────────────────── */
+
+.ov-chart-card {
+  border-radius: 8px !important;
+  border: 1px solid var(--ov-line) !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease !important;
+}
+
+.ov-chart-card:hover {
+  border-color: var(--ant-color-primary-border) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+}
+
+.index-page.is-dark .ov-chart-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
 
 .ov-mid {
   display: grid;
@@ -288,6 +379,7 @@
 .ov-wide-head {
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 16px;
   padding: var(--ov-pad) var(--ov-pad) 0;
@@ -295,109 +387,203 @@
 
 .ov-wide-head-stack {
   flex-direction: column;
-  gap: 0;
+  gap: 6px;
 }
 
-.ov-wide-legend {
-  margin-inline-start: auto;
-  display: flex;
-  gap: 22px;
-  text-align: end;
-}
-
-.ov-legend-label {
+.ov-speed-badges {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 6px;
-  font-size: 11px;
-  color: var(--ov-label);
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-.ov-legend-num {
-  font-size: 13px;
-  font-weight: 600;
+.ov-speed-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.ov-speed-pill-up {
+  background: rgba(35, 131, 226, 0.1);
+  border: 1px solid rgba(35, 131, 226, 0.25);
   color: var(--ant-color-text);
+}
+
+.ov-speed-pill-up .ov-speed-icon-wrapper {
+  color: #2383e2;
+}
+
+.ov-speed-pill-down {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: var(--ant-color-text);
+}
+
+.ov-speed-pill-down .ov-speed-icon-wrapper {
+  color: #10b981;
+}
+
+.ov-speed-icon-wrapper {
+  display: inline-flex;
+  font-size: 11px;
+}
+
+.ov-speed-label {
+  color: var(--ov-label);
+  font-size: 11px;
+}
+
+.ov-speed-val {
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
-  white-space: nowrap;
 }
 
 .ov-conn-total {
   display: flex;
   align-items: baseline;
   gap: 6px;
-  margin-top: 12px;
+  margin-top: 4px;
 }
 
 .ov-conn-legend {
   display: flex;
-  gap: 16px;
-  padding: 16px var(--ov-pad) 0;
+  gap: 10px;
+  padding: 12px var(--ov-pad) 0;
 }
 
-.ov-conn-legend > div {
-  flex: 1 1 0;
+.ov-conn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(128, 128, 128, 0.06);
+  border: 1px solid var(--ov-line);
+  font-size: 12px;
 }
 
-.ov-conn-legend .ov-legend-label {
-  justify-content: flex-start;
-}
-
-.ov-swatch {
-  width: 14px;
-  height: 2px;
+.ov-swatch-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
   flex: none;
 }
 
+.ov-conn-proto {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ov-label);
+}
+
+.ov-legend-num {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ant-color-text);
+  font-variant-numeric: tabular-nums;
+}
+
 .ov-wide-chart {
-  padding: 12px 8px 0;
+  padding: 12px 10px 0;
 }
 
 .ov-wide-foot {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   margin: 12px var(--ov-pad) 0;
-  padding: 14px 0 var(--ov-pad);
+  padding: 12px 0 var(--ov-pad);
   border-top: 1px solid var(--ov-line);
 }
 
-.ov-wide-foot > div {
+.ov-stat-tile {
   flex: 1 1 0;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: rgba(128, 128, 128, 0.04);
+  border: 1px solid var(--ov-line);
 }
 
-.ov-foot-sep {
-  width: 1px;
-  background: var(--ov-line);
+.ov-stat-tile-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .ov-foot-value {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   margin-top: 4px;
   color: var(--ant-color-text);
   font-variant-numeric: tabular-nums;
 }
 
-.ov-foot-part {
-  display: inline-block;
-  white-space: nowrap;
+.ov-foot-split {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.ov-foot-sep-dot {
+  color: var(--ov-faint);
 }
 
 @media (max-width: 560px) {
   .ov-wide-foot {
     flex-direction: column;
-    gap: 10px;
-  }
-
-  .ov-wide-foot .ov-foot-sep {
-    display: none;
+    gap: 8px;
   }
 }
 
-/* — system strip — */
+.ov-conn-split-bar-container {
+  width: 100%;
+}
 
-/* tracks follow SystemStrip's cell order:
-   uptime (xray | os) · panel (memory | threads) · ip addresses */
+.ov-conn-split-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ov-label);
+  margin-bottom: 6px;
+}
+
+.ov-conn-split-bar {
+  display: flex;
+  height: 6px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(128, 128, 128, 0.12);
+}
+
+.ov-conn-bar-tcp,
+.ov-conn-bar-udp {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+/* ─── System strip ───────────────────────────────────────────────── */
+
+.ov-strip-card {
+  border-radius: 8px !important;
+  border: 1px solid var(--ov-line) !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease !important;
+}
+
+.ov-strip-card:hover {
+  border-color: var(--ant-color-primary-border) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+}
+
+.index-page.is-dark .ov-strip-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
 .ov-strip-grid {
   display: grid;
   grid-template-columns: minmax(max-content, 1.2fr) minmax(max-content, 1.2fr) minmax(0, 1.6fr);
@@ -405,81 +591,154 @@
   padding: var(--ov-pad);
 }
 
-@media (max-width: 1439px) {
-  .ov-strip-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   .ov-strip-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 700px) {
   .ov-strip-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 }
 
-@media (min-width: 1440px) {
-  .ov-strip-cell + .ov-strip-cell {
-    border-inline-start: 1px solid var(--ov-line);
-    padding-inline-start: 16px;
-  }
-}
-
-.ov-strip-value {
-  font-size: 19px;
-  font-weight: 600;
-  margin-top: 6px;
-  color: var(--ant-color-text);
-  font-variant-numeric: tabular-nums;
-}
-
-.ov-strip-split {
+.ov-strip-cell {
   display: flex;
-  align-items: stretch;
-  gap: 14px;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.ov-strip-split-sep {
-  width: 1px;
-  background: var(--ov-line);
-  margin-top: 8px;
+.ov-strip-cell-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ov-strip-icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: rgba(128, 128, 128, 0.08);
+  color: var(--ov-label);
+  font-size: 13px;
+  flex: none;
+}
+
+.ov-strip-items {
+  display: flex;
+  gap: 10px;
+}
+
+.ov-strip-mini-tile {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: rgba(128, 128, 128, 0.04);
+  border: 1px solid var(--ov-line);
 }
 
 .ov-strip-sub {
-  font-size: 10px;
-  letter-spacing: 0.06em;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  margin-top: 8px;
   color: var(--ov-faint);
 }
 
-.ov-strip-sub + .ov-strip-value {
-  margin-top: 2px;
+.ov-strip-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ant-color-text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
-.ov-ip {
-  margin-top: 7px;
-  font-size: 13px;
-  overflow-wrap: anywhere;
+/* IP address cell */
+.ov-ip-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   transition: filter 0.2s ease;
 }
 
+.ov-ip-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: rgba(128, 128, 128, 0.04);
+  border: 1px solid var(--ov-line);
+}
+
+.ov-ip-pill-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(128, 128, 128, 0.1);
+  color: var(--ov-label);
+  flex: none;
+}
+
+.ov-ip-text {
+  font-size: 12.5px;
+  color: var(--ant-color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
 .ov-ip-v6 {
-  margin-top: 3px;
   color: var(--ov-label);
 }
 
-/* — preserved from the previous overview — */
-
-.index-page .ip-toggle-icon {
-  cursor: pointer;
-  font-size: 15px;
+.ov-ip-toggle-btn {
   margin-inline-start: auto;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--ov-label);
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+.ov-ip-toggle-btn:hover {
+  color: var(--ant-color-primary);
+  background: rgba(35, 131, 226, 0.08);
+}
+
+.ov-ip-copy-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--ov-label);
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 5px;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+  flex: none;
+}
+
+.ov-ip-copy-btn:hover {
+  color: var(--ant-color-primary);
+  background: rgba(35, 131, 226, 0.08);
 }
 
 .index-page .ip-hidden {
