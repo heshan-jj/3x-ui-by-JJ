@@ -24,20 +24,20 @@ Virtuozzo، Arch، Manjaro، openSUSE (Tumbleweed/Leap)، Alpine — و همچن
 دستور مدیریتی `x-ui` را نصب می‌کند.
 
 ```bash title="latest stable"
-bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/heshan-jj/3x-ui-by-JJ/main/install.sh)
 ```
 
 برای نصب یک **نسخهٔ مشخص**، تگ آن را در انتها اضافه کنید:
 
 ```bash title="pinned version"
-bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh) v3.4.0
+bash <(curl -Ls https://raw.githubusercontent.com/heshan-jj/3x-ui-by-JJ/main/install.sh) v3.4.0
 ```
 
 برای نصب نسخهٔ **dev** غلتان (آخرین پیش‌انتشار به‌ازای هر کامیت از شاخهٔ `main`
 — نه یک نسخهٔ پایدار) عبارت `dev-latest` را پاس دهید:
 
 ```bash title="rolling dev build"
-bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh) dev-latest
+bash <(curl -Ls https://raw.githubusercontent.com/heshan-jj/3x-ui-by-JJ/main/install.sh) dev-latest
 ```
 
 پس از پایان نصب، مشخصات ورود چاپ‌شده را یادداشت کنید و دستور `x-ui` را اجرا کنید تا
@@ -122,10 +122,10 @@ docker run -d \
 `/etc/x-ui/install-result.env` بنویسد:
 
 ```bash
-XUI_NONINTERACTIVE=1 bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
+XUI_NONINTERACTIVE=1 bash <(curl -Ls https://raw.githubusercontent.com/heshan-jj/3x-ui-by-JJ/main/install.sh)
 ```
 
-دایرکتوری [`deploy/`](https://github.com/MHSanaei/3x-ui/tree/main/deploy) در مخزن
+دایرکتوری [`deploy/`](https://github.com/heshan-jj/3x-ui-by-JJ/tree/main/deploy) در مخزن
 یک user-data آمادهٔ **cloud-init** برای نصب‌های خودکار روی هر ابری (Hetzner، AWS،
 DigitalOcean، Vultr، GCP، Azure، Oracle) دارد.
 
