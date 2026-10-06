@@ -34,68 +34,190 @@ const initialDark = readBool(STORAGE_DARK, true);
 const initialUltra = readBool(STORAGE_ULTRA, false);
 applyDom(initialDark, initialUltra);
 
-const DARK_TOKENS = {
-  colorBgBase: '#1a1b1f',
-  colorBgLayout: '#1a1b1f',
-  colorBgContainer: '#23252b',
-  colorBgElevated: '#2d2f37',
+// ─── Shared design tokens ──────────────────────────────────────────────────
+const SHARED_FONT = "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+
+// ─── Light mode tokens ─────────────────────────────────────────────────────
+const LIGHT_TOKENS = {
+  colorBgBase: '#ffffff',
+  colorBgLayout: '#f7f7f5',
+  colorBgContainer: '#ffffff',
+  colorBgElevated: '#ffffff',
+  colorText: '#37352f',
+  colorTextSecondary: '#6b6b6b',
+  colorTextTertiary: '#9b9a97',
+  colorTextPlaceholder: '#9b9a97',
+  colorBorder: '#e9e9e7',
+  colorBorderSecondary: '#e9e9e7',
+  colorPrimary: '#2383e2',
+  colorPrimaryHover: '#0b6dcb',
+  colorPrimaryActive: '#0958d9',
+  colorError: '#df4040',
+  colorErrorText: '#df4040',
+  colorSuccess: '#2d9653',
+  colorSuccessText: '#2d9653',
+  colorWarning: '#c08a00',
+  borderRadius: 6,
+  borderRadiusLG: 8,
+  borderRadiusSM: 4,
+  fontFamily: SHARED_FONT,
+  fontSize: 14,
+  lineHeight: 1.5,
+  motionDurationMid: '0.15s',
+  motionDurationSlow: '0.2s',
 };
+
+const LIGHT_BUTTON_TOKENS = {
+  colorPrimary: '#2383e2',
+  colorPrimaryHover: '#0b6dcb',
+  colorPrimaryActive: '#0958d9',
+  borderRadius: 6,
+  borderRadiusSM: 4,
+};
+
+const LIGHT_LAYOUT_TOKENS = {
+  bodyBg: '#f7f7f5',
+  headerBg: '#ffffff',
+  footerBg: '#f7f7f5',
+  siderBg: '#f7f7f5',
+};
+
+const LIGHT_MENU_TOKENS = {
+  itemBg: 'transparent',
+  subMenuItemBg: 'transparent',
+  popupBg: '#ffffff',
+  itemSelectedBg: '#e9e9e7',
+  itemSelectedColor: '#37352f',
+  itemHoverBg: '#f1f1ef',
+  itemHoverColor: '#37352f',
+  itemColor: '#37352f',
+  itemHeight: 32,
+  fontSize: 14,
+};
+
+const LIGHT_TABLE_TOKENS = {
+  headerBg: '#f7f7f5',
+  rowHoverBg: '#f7f7f5',
+  borderColor: '#e9e9e7',
+};
+
+const LIGHT_CARD_TOKENS = {
+  colorBorderSecondary: '#e9e9e7',
+};
+
+// ─── Dark mode tokens ──────────────────────────────────────────────────────
+const DARK_TOKENS = {
+  colorBgBase: '#191919',
+  colorBgLayout: '#191919',
+  colorBgContainer: '#202020',
+  colorBgElevated: '#2c2c2c',
+  colorText: '#e6e5e3',
+  colorTextSecondary: '#9b9a97',
+  colorTextTertiary: '#6b6b6b',
+  colorTextPlaceholder: '#6b6b6b',
+  colorBorder: '#2d2d2d',
+  colorBorderSecondary: '#2d2d2d',
+  colorPrimary: '#5b9de1',
+  colorPrimaryHover: '#7ab3e8',
+  colorPrimaryActive: '#4387d0',
+  colorError: '#f25757',
+  colorErrorText: '#f25757',
+  colorSuccess: '#3dba6f',
+  colorSuccessText: '#3dba6f',
+  colorWarning: '#e5a82c',
+  borderRadius: 6,
+  borderRadiusLG: 8,
+  borderRadiusSM: 4,
+  fontFamily: SHARED_FONT,
+  fontSize: 14,
+  lineHeight: 1.5,
+  motionDurationMid: '0.15s',
+  motionDurationSlow: '0.2s',
+};
+
+const DARK_LAYOUT_TOKENS = {
+  bodyBg: '#191919',
+  headerBg: '#191919',
+  headerColor: '#e6e5e3',
+  footerBg: '#191919',
+  siderBg: '#191919',
+  triggerBg: '#2c2c2c',
+  triggerColor: '#e6e5e3',
+};
+
 const ULTRA_DARK_TOKENS = {
   colorBgBase: '#000',
   colorBgLayout: '#000',
-  colorBgContainer: '#101013',
-  colorBgElevated: '#1a1a1e',
+  colorBgContainer: '#111111',
+  colorBgElevated: '#1a1a1a',
+  colorText: '#e6e5e3',
+  colorTextSecondary: '#9b9a97',
+  colorTextTertiary: '#6b6b6b',
+  colorTextPlaceholder: '#6b6b6b',
+  colorBorder: '#222222',
+  colorBorderSecondary: '#222222',
+  colorPrimary: '#5b9de1',
+  colorPrimaryHover: '#7ab3e8',
+  colorPrimaryActive: '#4387d0',
+  colorError: '#f25757',
+  colorErrorText: '#f25757',
+  colorSuccess: '#3dba6f',
+  colorSuccessText: '#3dba6f',
+  colorWarning: '#e5a82c',
+  borderRadius: 6,
+  borderRadiusLG: 8,
+  borderRadiusSM: 4,
+  fontFamily: SHARED_FONT,
+  fontSize: 14,
+  lineHeight: 1.5,
 };
-const DARK_LAYOUT_TOKENS = {
-  bodyBg: '#1a1b1f',
-  headerBg: '#15161a',
-  headerColor: '#ffffff',
-  footerBg: '#1a1b1f',
-  siderBg: '#15161a',
-  triggerBg: '#23252b',
-  triggerColor: '#ffffff',
-};
+
 const ULTRA_DARK_LAYOUT_TOKENS = {
   bodyBg: '#000',
-  headerBg: '#050507',
-  headerColor: '#ffffff',
+  headerBg: '#050505',
+  headerColor: '#e6e5e3',
   footerBg: '#000',
-  siderBg: '#050507',
-  triggerBg: '#1a1a1e',
-  triggerColor: '#ffffff',
+  siderBg: '#050505',
+  triggerBg: '#1a1a1a',
+  triggerColor: '#e6e5e3',
 };
+
 const DARK_MENU_TOKENS = {
-  darkItemBg: '#15161a',
-  darkSubMenuItemBg: '#1a1b1f',
-  darkPopupBg: '#23252b',
+  darkItemBg: 'transparent',
+  darkSubMenuItemBg: 'transparent',
+  darkPopupBg: '#2c2c2c',
+  darkItemSelectedBg: '#2c2c2c',
+  darkItemSelectedColor: '#e6e5e3',
+  darkItemHoverBg: '#262626',
+  darkItemHoverColor: '#e6e5e3',
+  darkItemColor: '#9b9a97',
+  itemHeight: 32,
+  fontSize: 14,
 };
+
 const ULTRA_DARK_MENU_TOKENS = {
-  darkItemBg: '#050507',
-  darkSubMenuItemBg: '#000',
-  darkPopupBg: '#101013',
+  darkItemBg: 'transparent',
+  darkSubMenuItemBg: 'transparent',
+  darkPopupBg: '#1a1a1a',
+  darkItemSelectedBg: '#1a1a1a',
+  darkItemSelectedColor: '#e6e5e3',
+  darkItemHoverBg: '#151515',
+  darkItemHoverColor: '#e6e5e3',
+  darkItemColor: '#6b6b6b',
+  itemHeight: 32,
+  fontSize: 14,
 };
+
 const DARK_CARD_TOKENS = {
-  colorBorderSecondary: 'rgba(255, 255, 255, 0.06)',
+  colorBorderSecondary: '#2d2d2d',
 };
 const ULTRA_DARK_CARD_TOKENS = {
-  colorBorderSecondary: 'rgba(255, 255, 255, 0.04)',
+  colorBorderSecondary: '#222222',
 };
+
 const STATISTIC_TOKENS = {
   contentFontSize: 17,
   titleFontSize: 11,
-};
-const LIGHT_CONTRAST_TOKENS = {
-  colorTextDescription: 'rgba(0, 0, 0, 0.58)',
-  colorTextTertiary: 'rgba(0, 0, 0, 0.58)',
-  colorTextPlaceholder: '#767676',
-  colorError: '#cf1322',
-  colorErrorText: '#cf1322',
-  colorSuccessText: '#237804',
-};
-const LIGHT_BUTTON_TOKENS = {
-  colorPrimary: '#0958d9',
-  colorPrimaryHover: '#2468e5',
-  colorPrimaryActive: '#073ea8',
 };
 
 // hashed:false drops the `:where(.css-<hash>)` wrapper antd puts around every
@@ -117,8 +239,12 @@ export function buildAntdThemeConfig(isDark: boolean, isUltra: boolean): ThemeCo
     return {
       ...SHARED_STYLE_CONFIG,
       algorithm: antdTheme.defaultAlgorithm,
-      token: LIGHT_CONTRAST_TOKENS,
+      token: LIGHT_TOKENS,
       components: {
+        Layout: LIGHT_LAYOUT_TOKENS,
+        Menu: LIGHT_MENU_TOKENS,
+        Table: LIGHT_TABLE_TOKENS,
+        Card: LIGHT_CARD_TOKENS,
         Statistic: STATISTIC_TOKENS,
         Button: LIGHT_BUTTON_TOKENS,
       },

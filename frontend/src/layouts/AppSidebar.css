@@ -1,6 +1,7 @@
+/* ─── Sidebar layout ─────────────────────────────────────────────── */
 .ant-sidebar {
-  flex: 0 0 var(--sider-rail, 72px);
-  width: var(--sider-rail, 72px);
+  flex: 0 0 var(--sider-rail, 56px);
+  width: var(--sider-rail, 56px);
   position: relative;
   z-index: 210;
 }
@@ -10,24 +11,29 @@
   top: 0;
   height: 100vh;
   align-self: flex-start;
+  border-right: 1px solid var(--ant-color-border);
+  transition: width 0.18s ease, flex 0.18s ease;
 }
 
 .ant-sidebar:not(.sidebar-pinned) > .ant-layout-sider:not(.ant-layout-sider-collapsed) {
-  box-shadow: 0 0 32px rgba(0, 0, 0, 0.22);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.06);
 }
 
+/* ─── Icon sizing ────────────────────────────────────────────────── */
 .sider-nav .ant-menu-item .anticon,
 .sider-nav .ant-menu-submenu-title .anticon,
 .sider-utility .ant-menu-item .anticon {
-  font-size: 16px;
+  font-size: 15px;
 }
 
+/* ─── Brand area ─────────────────────────────────────────────────── */
 .sider-brand,
 .drawer-brand {
   font-weight: 600;
-  font-size: 18px;
-  letter-spacing: 0.5px;
+  font-size: 14px;
+  letter-spacing: 0.2px;
   color: var(--ant-color-text);
+  font-family: 'Inter', sans-serif;
 }
 
 .sider-brand {
@@ -35,9 +41,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  height: 58px;
-  padding: 0 16px 0 24px;
-  border-bottom: 1px solid var(--ant-color-border-secondary);
+  height: 52px;
+  padding: 0 14px 0 20px;
+  border-bottom: 1px solid var(--ant-color-border);
   user-select: none;
   white-space: nowrap;
   overflow: hidden;
@@ -59,78 +65,45 @@
 
 .brand-actions .sidebar-pin,
 .brand-actions .sidebar-docs,
-.brand-actions .sidebar-donate,
 .brand-actions .sidebar-theme-cycle {
   width: 26px;
   height: 26px;
 }
 
-.sidebar-donate {
-  background: transparent;
-  border: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--ant-color-text-secondary);
-  text-decoration: none;
-  flex-shrink: 0;
-  transition:
-    background-color 0.2s,
-    transform 0.15s,
-    color 0.2s;
-}
-
-.sidebar-donate:hover,
-.sidebar-donate:focus-visible {
-  background-color: rgba(236, 72, 153, 0.12);
-  color: #ec4899;
-  transform: scale(1.08);
-  outline: none;
-}
-
-.sidebar-donate .anticon {
-  font-size: 16px;
-}
-
+/* ─── Docs / GitHub link button ──────────────────────────────────── */
 .sidebar-docs {
   background: transparent;
   border: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: var(--ant-color-text-secondary);
   text-decoration: none;
   flex-shrink: 0;
-  transition:
-    background-color 0.2s,
-    transform 0.15s,
-    color 0.2s;
+  transition: background-color 0.15s, color 0.15s;
 }
 
 .sidebar-docs:hover,
 .sidebar-docs:focus-visible {
-  background-color: color-mix(in srgb, var(--ant-color-primary) 12%, transparent);
-  color: var(--ant-color-primary);
-  transform: scale(1.08);
+  background-color: var(--ant-color-fill-secondary);
+  color: var(--ant-color-text);
   outline: none;
 }
 
 .sidebar-docs .anticon {
-  font-size: 16px;
+  font-size: 14px;
 }
 
+/* ─── Theme cycle button ─────────────────────────────────────────── */
 .sidebar-theme-cycle {
   background: transparent;
   border: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -138,24 +111,21 @@
   color: var(--ant-color-text-secondary);
   padding: 0;
   flex-shrink: 0;
-  transition:
-    background-color 0.2s,
-    transform 0.15s,
-    color 0.2s;
+  transition: background-color 0.15s, color 0.15s;
 }
 
 .sidebar-theme-cycle:hover,
 .sidebar-theme-cycle:focus-visible {
-  background-color: color-mix(in srgb, var(--ant-color-primary) 12%, transparent);
-  color: var(--ant-color-primary);
-  transform: scale(1.08);
+  background-color: var(--ant-color-fill-secondary);
+  color: var(--ant-color-text);
   outline: none;
 }
 
 .sidebar-theme-cycle .anticon {
-  font-size: 16px;
+  font-size: 14px;
 }
 
+/* ─── Drawer header ──────────────────────────────────────────────── */
 .drawer-header-actions {
   display: inline-flex;
   align-items: center;
@@ -167,18 +137,18 @@
   top: 12px;
   left: 12px;
   z-index: 1100;
-  background: rgba(0, 0, 0, 0.55);
-  color: #fff;
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  background: var(--ant-color-bg-elevated);
+  color: var(--ant-color-text);
+  border: 1px solid var(--ant-color-border);
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
   cursor: pointer;
   display: none;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  font-size: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 .drawer-header {
@@ -186,44 +156,47 @@
   align-items: center;
   justify-content: space-between;
   padding: 14px 16px;
-  border-bottom: 1px solid var(--ant-color-border-secondary);
+  border-bottom: 1px solid var(--ant-color-border);
 }
 
 .drawer-close {
   background: transparent;
   border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--ant-color-text-secondary);
+  transition: background-color 0.15s;
 }
 
 .drawer-close:hover,
 .drawer-close:focus-visible {
-  background: var(--ant-color-fill-tertiary);
+  background: var(--ant-color-fill-secondary);
 }
 
+/* ─── Menu items ─────────────────────────────────────────────────── */
 .drawer-menu .ant-menu-item {
-  height: 48px;
-  line-height: 48px;
+  height: 34px;
+  line-height: 34px;
   margin: 0;
   border-radius: 0;
 }
 
 .drawer-menu .ant-menu-item .anticon {
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .drawer-utility {
   margin-top: auto;
-  border-top: 1px solid var(--ant-color-border-secondary);
+  border-top: 1px solid var(--ant-color-border);
 }
 
+/* ─── Sider layout ───────────────────────────────────────────────── */
 .ant-sidebar > .ant-layout-sider .ant-layout-sider-children {
   display: flex;
   flex-direction: column;
@@ -235,11 +208,19 @@
   overflow-y: auto;
   overflow-x: hidden;
   min-height: 0;
+  padding: 4px 8px 0;
+}
+
+.sider-nav .ant-menu,
+.sider-utility .ant-menu {
+  background: transparent !important;
+  border: none !important;
 }
 
 .sider-utility {
   flex: 0 0 auto;
-  border-top: 1px solid var(--ant-color-border-secondary);
+  border-top: 1px solid var(--ant-color-border);
+  padding: 0 8px;
 }
 
 .sider-footer {
@@ -248,75 +229,178 @@
 }
 
 .sider-sponsor {
-  margin-bottom: 6px;
+  display: none;
 }
 
+/* ─── Pin button ─────────────────────────────────────────────────── */
 .sidebar-pin {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   padding: 0;
   border: none;
-  border-radius: 50%;
+  border-radius: 4px;
   background: transparent;
   color: var(--ant-color-text-secondary);
   cursor: pointer;
   flex-shrink: 0;
-  transition:
-    background-color 0.2s,
-    transform 0.15s,
-    color 0.2s;
+  transition: background-color 0.15s, color 0.15s;
 }
 
 .sidebar-pin:hover,
 .sidebar-pin:focus-visible {
-  background-color: color-mix(in srgb, var(--ant-color-primary) 10%, transparent);
-  color: var(--ant-color-primary);
-  transform: scale(1.08);
+  background-color: var(--ant-color-fill-secondary);
+  color: var(--ant-color-text);
   outline: none;
 }
 
 .sidebar-pin .anticon {
-  font-size: 16px;
+  font-size: 14px;
 }
 
+/* ─── Version badge ──────────────────────────────────────────────── */
 .sider-version {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
-  padding: 8px 16px;
-  color: var(--ant-color-text-secondary);
-  font-size: 13px;
+  padding: 6px 12px;
+  color: var(--ant-color-text-tertiary);
+  font-size: 11px;
   font-weight: 500;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   text-decoration: none;
-  transition: color 0.2s;
+  border-radius: 4px;
+  transition: background-color 0.15s, color 0.15s;
 }
 
 .ant-layout-sider-collapsed .sider-version {
   justify-content: center;
-  padding: 8px 0;
+  padding: 6px 0;
 }
 
 .sider-version .anticon {
-  font-size: 16px;
+  font-size: 13px;
 }
 
 .sider-version:hover,
 .sider-version:focus-visible {
-  color: var(--ant-color-primary);
+  background-color: var(--ant-color-fill-secondary);
+  color: var(--ant-color-text);
   outline: none;
 }
 
+/* ─── Drawer footer ──────────────────────────────────────────────── */
 .drawer-footer {
   flex: 0 0 auto;
   padding: 8px 8px 12px;
 }
 
+/* ─── Command palette trigger ────────────────────────────────────── */
+.sidebar-command-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100% - 16px);
+  margin: 6px 8px 4px;
+  padding: 0 10px;
+  height: 28px;
+  background: var(--ant-color-fill-tertiary);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--ant-color-text-tertiary);
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.15s, color 0.15s;
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sidebar-command-trigger.collapsed {
+  justify-content: center;
+  padding: 0;
+  width: 36px;
+  margin: 6px auto 4px;
+}
+
+.sidebar-command-trigger:hover {
+  background: var(--ant-color-fill-secondary);
+  color: var(--ant-color-text);
+}
+
+.sidebar-command-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.sidebar-command-icon {
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.sidebar-command-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-command-kbd {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.kbd-cmd,
+.kbd-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 18px;
+  min-width: 18px;
+  padding: 0 4px;
+  background: var(--ant-color-bg-container);
+  border: 1px solid var(--ant-color-border);
+  border-radius: 3px;
+  font-size: 10px;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  color: var(--ant-color-text-secondary);
+  line-height: 1;
+}
+
+/* ─── Menu item overrides ────────────────────────────────────────── */
+.sider-nav .ant-menu-item,
+.sider-nav .ant-menu-submenu-title {
+  margin: 1px 0;
+  border-radius: 4px;
+}
+
+.sider-nav .ant-menu-item-selected,
+.sider-utility .ant-menu-item-selected,
+.drawer-menu .ant-menu-item-selected {
+  background-color: var(--ant-color-fill-secondary) !important;
+  color: var(--ant-color-text) !important;
+  font-weight: 500;
+}
+
+.sider-nav .ant-menu-item-active:not(.ant-menu-item-selected),
+.sider-utility .ant-menu-item-active:not(.ant-menu-item-selected),
+.drawer-menu .ant-menu-item-active:not(.ant-menu-item-selected),
+.sider-nav .ant-menu-item:not(.ant-menu-item-selected):not(.ant-menu-item-disabled):hover,
+.sider-utility .ant-menu-item:not(.ant-menu-item-selected):not(.ant-menu-item-disabled):hover,
+.drawer-menu .ant-menu-item:not(.ant-menu-item-selected):not(.ant-menu-item-disabled):hover {
+  background-color: var(--ant-color-fill-tertiary) !important;
+  color: var(--ant-color-text) !important;
+}
+
+/* ─── Responsive: mobile drawer ──────────────────────────────────── */
 @media (max-width: 768px) {
   .drawer-handle {
     display: inline-flex;
@@ -339,14 +423,15 @@
   }
 }
 
+/* ─── Dark drawer overrides ──────────────────────────────────────── */
 body.dark .ant-drawer-content,
 body.dark .ant-drawer-body {
-  background-color: #15161a;
+  background-color: #191919;
 }
 
 html[data-theme='ultra-dark'] body.dark .ant-drawer-content,
 html[data-theme='ultra-dark'] body.dark .ant-drawer-body {
-  background-color: #050507;
+  background-color: #050505;
 }
 
 body.dark .ant-drawer-body .drawer-menu,
@@ -355,21 +440,4 @@ body.dark .ant-drawer-body .drawer-menu .ant-menu-item,
 body.dark .ant-drawer-body .drawer-menu .ant-menu-sub,
 body.dark .ant-drawer-body .drawer-menu .ant-menu-item-group-list {
   background-color: transparent;
-}
-
-.sider-nav .ant-menu-item-selected,
-.sider-utility .ant-menu-item-selected,
-.drawer-menu .ant-menu-item-selected {
-  background-color: color-mix(in srgb, var(--ant-color-primary) 20%, transparent) !important;
-  color: var(--ant-color-primary) !important;
-}
-
-.sider-nav .ant-menu-item-active:not(.ant-menu-item-selected),
-.sider-utility .ant-menu-item-active:not(.ant-menu-item-selected),
-.drawer-menu .ant-menu-item-active:not(.ant-menu-item-selected),
-.sider-nav .ant-menu-item:not(.ant-menu-item-selected):not(.ant-menu-item-disabled):hover,
-.sider-utility .ant-menu-item:not(.ant-menu-item-selected):not(.ant-menu-item-disabled):hover,
-.drawer-menu .ant-menu-item:not(.ant-menu-item-selected):not(.ant-menu-item-disabled):hover {
-  background-color: color-mix(in srgb, var(--ant-color-primary) 10%, transparent) !important;
-  color: var(--ant-color-primary) !important;
 }
