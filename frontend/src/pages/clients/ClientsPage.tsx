@@ -1088,7 +1088,7 @@ export default function ClientsPage() {
       {
         title: t('pages.clients.online'),
         key: 'online',
-        width: 90,
+        width: 100,
         render: (_v, record) => {
           const bucket = clientBucket(record);
           const lastOnline = record.traffic?.lastOnline ?? 0;
@@ -1097,21 +1097,27 @@ export default function ClientsPage() {
           if (bucket === 'depleted')
             return (
               <Tooltip title={lastOnlineTitle}>
-                <Tag color="red">{t('depleted')}</Tag>
+                <span className="client-status-badge status-depleted">{t('depleted')}</span>
               </Tooltip>
             );
           if (record.enable && isOnline(record.email))
             return (
-              <Tag color="green" className="dot-tag">
+              <span className="client-status-badge status-online">
                 <span className="online-dot" />
                 {t('pages.clients.online')}
-              </Tag>
+              </span>
             );
-          if (!record.enable) return <Tag>{t('disabled')}</Tag>;
-          if (bucket === 'expiring') return <Tag color="orange">{t('depletingSoon')}</Tag>;
+          if (!record.enable)
+            return <span className="client-status-badge status-disabled">{t('disabled')}</span>;
+          if (bucket === 'expiring')
+            return (
+              <span className="client-status-badge status-expiring">{t('depletingSoon')}</span>
+            );
           return (
             <Tooltip title={lastOnlineTitle}>
-              <Tag>{t('pages.clients.offline')}</Tag>
+              <span className="client-status-badge status-offline">
+                {t('pages.clients.offline')}
+              </span>
             </Tooltip>
           );
         },
@@ -1124,7 +1130,7 @@ export default function ClientsPage() {
           <div className="email-cell">
             <span className="email">{record.email}</span>
             {record.subId && (
-              <span className="sub" title={record.subId}>
+              <span className="sub sub-id-chip" title={record.subId}>
                 {record.subId}
               </span>
             )}
@@ -1141,9 +1147,10 @@ export default function ClientsPage() {
           if (!record.group) return <Typography.Text type="secondary">—</Typography.Text>;
           const isActive = filters.groups.includes(record.group);
           return (
-            <Tag
-              color="geekblue"
-              style={{ margin: 0, cursor: 'pointer', opacity: isActive ? 0.6 : 1 }}
+            <button
+              type="button"
+              className="client-group-badge"
+              style={{ cursor: 'pointer', opacity: isActive ? 0.6 : 1 }}
               onClick={(e) => {
                 e.stopPropagation();
                 if (!isActive) {
@@ -1152,7 +1159,7 @@ export default function ClientsPage() {
               }}
             >
               {record.group}
-            </Tag>
+            </button>
           );
         },
       },

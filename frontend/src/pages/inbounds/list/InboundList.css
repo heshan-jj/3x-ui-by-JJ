@@ -32,14 +32,64 @@
   font-size: 12px;
 }
 
+/* ─── Summary Card ───────────────────────────────────────────────── */
+.inbounds-page .summary-card {
+  border-radius: 8px !important;
+  border: 1px solid var(--ant-color-border) !important;
+  background: var(--bg-card, var(--ant-color-bg-container)) !important;
+  padding: 4px;
+}
+
+.inbounds-page .summary-card .ant-statistic {
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: rgba(128, 128, 128, 0.04);
+  border: 1px solid var(--ant-color-border);
+}
+
+.inbounds-page .summary-card .ant-statistic-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ant-color-text-secondary);
+  margin-bottom: 4px;
+}
+
+.inbounds-page .summary-card .ant-statistic-content {
+  font-size: 18px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Table Modern Styling ───────────────────────────────────────── */
 .inbounds-page .ant-table {
   border-radius: 8px;
   overflow: hidden;
+  border: 1px solid var(--ant-color-border);
 }
 
 .inbounds-page .ant-table-container {
   border-radius: 8px;
   overflow: hidden;
+}
+
+.inbounds-page .ant-table-thead > tr > th {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  color: var(--ant-color-text-secondary) !important;
+  background: transparent !important;
+  border-bottom: 1px solid var(--ant-color-border) !important;
+}
+
+.inbounds-page .ant-table-tbody > tr > td {
+  border-bottom: 1px solid var(--ant-color-border) !important;
+}
+
+.inbounds-page .ant-table-tbody > tr:hover > td {
+  background: rgba(128, 128, 128, 0.035) !important;
 }
 
 .inbounds-page .ant-table-thead > tr:first-child > *:first-child {

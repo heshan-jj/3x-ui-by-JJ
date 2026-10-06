@@ -204,6 +204,7 @@ export function useInboundColumns({
         align: 'center',
         width: 80,
         sorter: (a, b) => a.port - b.port,
+        render: (port: number) => <span className="port-badge">{port}</span>,
       },
       {
         title: t('pages.inbounds.protocol'),
@@ -212,67 +213,68 @@ export function useInboundColumns({
         width: 190,
         sorter: (a, b) => compareText(a.protocol, b.protocol),
         render: (_, record) => {
+          const proto = (record.protocol || '').toLowerCase();
           const tags: ReactElement[] = [
-            <Tag key="p" color="purple">
+            <span key="p" className={`proto-pill proto-${proto}`}>
               {record.protocol}
-            </Tag>,
+            </span>,
           ];
           if (record.isWireguard || record.isAmneziawg || record.isHysteria || record.isTuic) {
             tags.push(
-              <Tag key="n" color="green">
+              <span key="n" className="transport-badge">
                 UDP
-              </Tag>,
+              </span>,
             );
           } else if (record.isSS) {
             const stream = readStreamHints(record.streamSettings);
             tags.push(
-              <Tag key="n" color="green">
+              <span key="n" className="transport-badge">
                 {shadowsocksNetworkLabel(record.settings)}
-              </Tag>,
+              </span>,
             );
             if (stream.isTls)
               tags.push(
-                <Tag key="tls" color="blue">
+                <span key="tls" className="sec-badge">
                   TLS
-                </Tag>,
+                </span>,
               );
           } else if (record.isTunnel) {
             tags.push(
-              <Tag key="n" color="green">
+              <span key="n" className="transport-badge">
                 {tunnelNetworkLabel(record.settings)}
-              </Tag>,
+              </span>,
             );
           } else if (record.isMixed) {
             tags.push(
-              <Tag key="n" color="green">
+              <span key="n" className="transport-badge">
                 {mixedNetworkLabel(record.settings)}
-              </Tag>,
+              </span>,
             );
           } else if (record.isVMess || record.isVLess || record.isTrojan) {
             const stream = readStreamHints(record.streamSettings);
             tags.push(
-              <Tag key="n" color="green">
+              <span key="n" className="transport-badge">
                 {networkLabel(stream.network)}
-              </Tag>,
+              </span>,
             );
             const l4 = networkL4(stream.network);
             if (l4)
               tags.push(
-                <Tag key="l4" color="green">
+                <span key="l4" className="transport-badge">
                   {l4}
-                </Tag>,
+                </span>,
               );
             if (stream.isTls)
               tags.push(
-                <Tag key="tls" color="blue">
+                <span key="tls" className="sec-badge">
                   TLS
-                </Tag>,
+                </span>,
               );
             if (stream.isReality)
               tags.push(
-                <Tag key="reality" color="blue">
+                <span key="reality" className="sec-badge">
                   Reality
-                </Tag>,
+                </span>,
               );
           }
           return <div className="protocol-tags">{tags}</div>;
@@ -288,13 +290,10 @@ export function useInboundColumns({
           const cc = clientCount[record.id] || fallbackClientCount(record);
           if (!cc) return null;
           return (
-            <>
-              <Tag
-                className="client-count-tag"
-                style={{ margin: 0, marginRight: 4, padding: '0 2px' }}
-              >
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 4, flexWrap: 'wrap' }}>
+              <span className="client-count-badge" title={t('clients')}>
                 <TeamOutlined /> {cc.clients}
-              </Tag>
+              </span>
               {cc.active.length > 0 ? (
                 <Popover
                   title={t('subscription.active')}
@@ -306,23 +305,11 @@ export function useInboundColumns({
                     </div>
                   }
                 >
-                  <Tag
-                    color="green"
-                    className="client-count-tag"
-                    style={{ margin: 0, marginRight: 4, padding: '0 2px' }}
-                  >
+                  <span className="client-active-badge" title={t('subscription.active')}>
                     {cc.active.length}
-                  </Tag>
+                  </span>
                 </Popover>
-              ) : (
-                <Tag
-                  color="green"
-                  className="client-count-tag"
-                  style={{ margin: 0, marginRight: 4, padding: '0 2px' }}
-                >
-                  0
-                </Tag>
-              )}
+              ) : null}
               {cc.deactive.length > 0 && (
                 <Popover
                   title={t('disabled')}
@@ -334,12 +321,13 @@ export function useInboundColumns({
                     </div>
                   }
                 >
-                  <Tag
-                    className="client-count-tag"
-                    style={{ margin: 0, marginRight: 4, padding: '0 2px' }}
+                  <span
+                    className="client-count-badge"
+                    style={{ color: 'var(--ant-color-text-secondary)', cursor: 'pointer' }}
+                    title={t('disabled')}
                   >
                     {cc.deactive.length}
-                  </Tag>
+                  </span>
                 </Popover>
               )}
               {cc.depleted.length > 0 && (
@@ -353,13 +341,18 @@ export function useInboundColumns({
                     </div>
                   }
                 >
-                  <Tag
-                    color="red"
-                    className="client-count-tag"
-                    style={{ margin: 0, marginRight: 4, padding: '0 2px' }}
+                  <span
+                    className="client-count-badge"
+                    style={{
+                      background: 'rgba(239, 68, 68, 0.1)',
+                      borderColor: 'rgba(239, 68, 68, 0.28)',
+                      color: '#ef4444',
+                      cursor: 'pointer',
+                    }}
+                    title={t('depleted')}
                   >
                     {cc.depleted.length}
-                  </Tag>
+                  </span>
                 </Popover>
               )}
               {cc.online.length > 0 && (
@@ -373,16 +366,21 @@ export function useInboundColumns({
                     </div>
                   }
                 >
-                  <Tag
-                    color="blue"
-                    className="client-count-tag"
-                    style={{ margin: 0, padding: '0 2px' }}
+                  <span
+                    className="client-count-badge"
+                    style={{
+                      background: 'rgba(35, 131, 226, 0.1)',
+                      borderColor: 'rgba(35, 131, 226, 0.28)',
+                      color: '#2383e2',
+                      cursor: 'pointer',
+                    }}
+                    title={t('online')}
                   >
                     {cc.online.length}
-                  </Tag>
+                  </span>
                 </Popover>
               )}
-            </>
+            </div>
           );
         },
       },

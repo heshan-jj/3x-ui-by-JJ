@@ -116,3 +116,137 @@
     animation: none;
   }
 }
+
+/* ─── Protocol & Table Badge System ──────────────────────────────── */
+.proto-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 1.5px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.proto-pill.proto-vless {
+  background: rgba(35, 131, 226, 0.12);
+  border: 1px solid rgba(35, 131, 226, 0.28);
+  color: #2383e2;
+}
+
+.proto-pill.proto-vmess {
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.28);
+  color: #8b5cf6;
+}
+
+.proto-pill.proto-trojan {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.28);
+  color: #f59e0b;
+}
+
+.proto-pill.proto-shadowsocks,
+.proto-pill.proto-ss {
+  background: rgba(20, 184, 166, 0.12);
+  border: 1px solid rgba(20, 184, 166, 0.28);
+  color: #14b8a6;
+}
+
+.proto-pill.proto-wireguard,
+.proto-pill.proto-amneziawg {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  color: #10b981;
+}
+
+.proto-pill.proto-hysteria,
+.proto-pill.proto-hysteria2,
+.proto-pill.proto-tuic {
+  background: rgba(244, 63, 94, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.28);
+  color: #f43f5e;
+}
+
+/* Default / fallback protocol pill */
+.proto-pill.proto-default {
+  background: rgba(128, 128, 128, 0.1);
+  border: 1px solid var(--ant-color-border);
+  color: var(--ant-color-text-secondary);
+}
+
+.transport-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 500;
+  background: rgba(128, 128, 128, 0.08);
+  border: 1px solid var(--ant-color-border);
+  color: var(--ant-color-text-secondary);
+  line-height: 1.4;
+}
+
+.sec-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 500;
+  background: rgba(35, 131, 226, 0.08);
+  border: 1px solid rgba(35, 131, 226, 0.25);
+  color: #2383e2;
+  line-height: 1.4;
+}
+
+.port-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  background: rgba(128, 128, 128, 0.07);
+  border: 1px solid var(--ant-color-border);
+  color: var(--ant-color-text);
+}
+
+.client-count-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  background: rgba(128, 128, 128, 0.07);
+  border: 1px solid var(--ant-color-border);
+  color: var(--ant-color-text);
+}
+
+.client-active-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  color: #10b981;
+  cursor: pointer;
+}
+

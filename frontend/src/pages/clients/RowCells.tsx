@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Popover, Space, Tag, Tooltip } from 'antd';
+import { Button, Popover, Space, Tooltip } from 'antd';
 import {
   DeleteOutlined,
   EditOutlined,
@@ -94,8 +94,6 @@ export const ClientRowActions = memo(function ClientRowActions({
   );
 });
 
-const CHIP_STYLE = { margin: 2 } as const;
-const OVERFLOW_CHIP_STYLE = { margin: 2, cursor: 'pointer' } as const;
 const OVERFLOW_LIST_STYLE = {
   display: 'flex',
   flexDirection: 'column' as const,
@@ -108,7 +106,7 @@ const OVERFLOW_LIST_STYLE = {
 interface ClientInboundChipsProps {
   ids: number[];
   inboundsById: Record<number, InboundOption>;
-  protocolColors: Record<string, string>;
+  protocolColors?: Record<string, string>;
   chipLimit: number;
 }
 
@@ -117,7 +115,6 @@ interface ClientInboundChipsProps {
 export const ClientInboundChips = memo(function ClientInboundChips({
   ids,
   inboundsById,
-  protocolColors,
   chipLimit,
 }: ClientInboundChipsProps) {
   if (ids.length === 0) return <span className="cell-empty">—</span>;
@@ -130,9 +127,9 @@ export const ClientInboundChips = memo(function ClientInboundChips({
     const proto = (inboundsById[id]?.protocol || '').toLowerCase();
     return (
       <Tooltip key={id} title={label(id)}>
-        <Tag color={protocolColors[proto] ?? 'default'} style={CHIP_STYLE}>
+        <span className={`proto-pill proto-${proto}`} style={{ margin: 2 }}>
           {label(id)}
-        </Tag>
+        </span>
       </Tooltip>
     );
   };
@@ -140,7 +137,7 @@ export const ClientInboundChips = memo(function ClientInboundChips({
   const visible = ids.slice(0, chipLimit);
   const overflow = ids.slice(chipLimit);
   return (
-    <>
+    <div style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap' }}>
       {visible.map(chip)}
       {overflow.length > 0 && (
         <Popover
@@ -148,11 +145,11 @@ export const ClientInboundChips = memo(function ClientInboundChips({
           placement="bottomRight"
           content={<div style={OVERFLOW_LIST_STYLE}>{overflow.map(chip)}</div>}
         >
-          <Tag color="default" style={OVERFLOW_CHIP_STYLE}>
+          <span className="proto-pill proto-default" style={{ margin: 2, cursor: 'pointer' }}>
             +{overflow.length}
-          </Tag>
+          </span>
         </Popover>
       )}
-    </>
+    </div>
   );
 });
