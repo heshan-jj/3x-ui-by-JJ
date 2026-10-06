@@ -1,0 +1,24 @@
+{
+  "name": "@heshan-jj/3x-ui-mcp",
+  "version": "1.0.0",
+  "description": "Model Context Protocol (MCP) server for 3X-UI by JJ. Connect Claude Desktop, Claude Code, Cursor, and AI agents directly to your Xray server.",
+  "main": "index.js",
+  "bin": {
+    "3x-ui-mcp": "./index.js"
+  },
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "anthropic",
+    "3x-ui",
+    "xray",
+    "v2ray"
+  ],
+  "author": "heshan-jj",
+  "license": "GPL-3.0"
+}

@@ -93,3 +93,63 @@
   display: flex;
   align-items: center;
 }
+
+.mcp-card {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: var(--ant-color-fill-quaternary, rgba(0, 0, 0, 0.02));
+  border: 1px solid var(--ant-color-border-secondary, #e5e7eb);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mcp-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.mcp-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mcp-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border-radius: 4px;
+  background: #0ea5e9;
+  color: #fff;
+}
+
+.mcp-title {
+  font-weight: 600;
+  font-size: 13.5px;
+}
+
+.mcp-desc {
+  margin: 0;
+  font-size: 12.5px;
+  opacity: 0.75;
+  line-height: 1.5;
+}
+
+.mcp-code {
+  margin: 0;
+  padding: 10px 12px;
+  background: var(--ant-color-fill-tertiary, #f3f4f6);
+  border-radius: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-x: auto;
+}

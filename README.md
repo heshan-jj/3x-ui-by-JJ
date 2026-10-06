@@ -36,6 +36,7 @@ Built as an enhanced edition of 3X-UI, **3X-UI by JJ** introduces refined UI tok
 - **Outbound & routing** — WARP, NordVPN, PIA, custom routing rules, load balancers with balancer-to-balancer fallback, and outbound proxy chaining. Bundled geosite and geoip categories are browsable straight from the rule editor.
 - **Built-in subscription server** — raw, JSON, and Clash output, auto-selected from the client's User-Agent, plus [custom page templates](docs/custom-subscription-templates.md).
 - **Telegram and Discord bots** for remote monitoring and management.
+- **Model Context Protocol (MCP)** — Native integration for Claude Desktop, Claude Code, and Cursor via [`tools/mcp`](tools/mcp/README.md) to inspect vitals, query clients, and manage inbounds using natural language.
 - **RESTful API** with scoped, optionally expiring tokens and an in-panel API reference.
 - **Installable panel (PWA)** — pin 3X-UI to a desktop or phone home screen.
 - **Flexible storage** — SQLite (default) or PostgreSQL.
@@ -146,6 +147,36 @@ The image bundles Fail2ban (enabled by default) to enforce per-client **IP limit
 ```bash
 docker run -d --cap-add=NET_ADMIN --cap-add=NET_RAW ... ghcr.io/heshan-jj/3x-ui-by-jj
 ```
+
+## AI & Claude Integration (Model Context Protocol)
+
+3X-UI by JJ includes built-in support for Anthropic's **Model Context Protocol (MCP)**, allowing **Claude Desktop**, **Claude Code**, **Cursor**, or any MCP-compatible AI agent to interact with your server directly:
+
+- 📊 *"Claude, what is the current CPU and RAM usage on my VPS?"*
+- 👥 *"List all clients who have used more than 20 GB of bandwidth."*
+- ➕ *"Add a new client for 'MyPhone' to inbound #1 with a 50 GB limit expiring in 30 days."*
+- 🔄 *"Restart the Xray core service and check for errors."*
+
+### Quick Setup for Claude Desktop
+
+Add the following block to your `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "3x-ui": {
+      "command": "node",
+      "args": ["/path/to/3x-ui-by-JJ/tools/mcp/index.js"],
+      "env": {
+        "XUI_BASE_URL": "https://your-panel-domain:2053/panel",
+        "XUI_API_TOKEN": "your_api_bearer_token"
+      }
+    }
+  }
+}
+```
+
+Detailed setup instructions, supported tools, and CLI commands are available in the **[`tools/mcp` documentation](tools/mcp/README.md)**.
 
 ## Environment Variables
 

@@ -369,6 +369,50 @@ export default function SecurityTab({ allSetting, updateSetting, saveSetting }: 
                     </div>
                   ))}
                 </Spin>
+
+                <div className="mcp-card">
+                  <div className="mcp-card-header">
+                    <div className="mcp-title-wrap">
+                      <span className="mcp-badge">MCP</span>
+                      <span className="mcp-title">Claude Desktop & AI Assistant Integration</span>
+                    </div>
+                    <Button
+                      size="small"
+                      onClick={() => {
+                        const origin = window.location.origin;
+                        const snippet = JSON.stringify(
+                          {
+                            mcpServers: {
+                              '3x-ui': {
+                                command: 'node',
+                                args: ['tools/mcp/index.js'],
+                                env: {
+                                  XUI_BASE_URL: origin,
+                                  XUI_API_TOKEN: createdToken?.token || '<YOUR_API_TOKEN_HERE>',
+                                },
+                              },
+                            },
+                          },
+                          null,
+                          2,
+                        );
+                        ClipboardManager.copy(snippet);
+                        messageApi.success('Copied claude_desktop_config.json snippet!');
+                      }}
+                    >
+                      {t('copy') || 'Copy'} Claude Config
+                    </Button>
+                  </div>
+                  <p className="mcp-desc">
+                    Connect Claude Desktop, Claude Code, or Cursor to query server vitals, list
+                    traffic, and manage clients via Model Context Protocol.
+                  </p>
+                  <pre className="mcp-code">
+                    <code>
+                      {`{\n  "mcpServers": {\n    "3x-ui": {\n      "command": "node",\n      "args": ["tools/mcp/index.js"],\n      "env": {\n        "XUI_BASE_URL": "${typeof window !== 'undefined' ? window.location.origin : 'https://your-panel:2053'}",\n        "XUI_API_TOKEN": "${createdToken?.token || '<YOUR_API_TOKEN>'}"\n      }\n    }\n  }\n}`}
+                    </code>
+                  </pre>
+                </div>
               </div>
             ),
           },
