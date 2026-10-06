@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Segmented } from 'antd';
-import { AndroidOutlined, AppleOutlined } from '@ant-design/icons';
+import { AndroidOutlined, AppleOutlined, WindowsOutlined } from '@ant-design/icons';
 
 import { APP_ICONS } from './appIcons';
 import type { AppPlatform, SubApp } from './subPageModel';
@@ -13,6 +13,8 @@ interface SubAppsTabProps {
 }
 
 const PLATFORM_OPTIONS = [
+  { value: 'windows' as const, label: 'Windows', icon: <WindowsOutlined /> },
+  { value: 'macos' as const, label: 'macOS', icon: <AppleOutlined /> },
   { value: 'android' as const, label: 'Android', icon: <AndroidOutlined /> },
   { value: 'ios' as const, label: 'iOS', icon: <AppleOutlined /> },
 ];
@@ -43,10 +45,15 @@ export default function SubAppsTab({ apps, initialPlatform, onOpen }: SubAppsTab
 
   return (
     <div className="sub-apps">
-      <Segmented<AppPlatform> value={platform} onChange={setPlatform} options={PLATFORM_OPTIONS} />
+      <Segmented<AppPlatform>
+        value={platform}
+        onChange={setPlatform}
+        options={PLATFORM_OPTIONS}
+        className="sub-platform-selector"
+      />
       <div className="sub-app-grid">
         {apps[platform].map((app) => (
-          <div key={app.name} className="sub-row">
+          <div key={app.name} className="sub-row sub-app-row">
             <AppIcon name={app.name} />
             <span className="sub-app-name">{app.name}</span>
             <Button type="primary" size="small" onClick={() => onOpen(app.url)}>

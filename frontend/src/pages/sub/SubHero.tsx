@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Progress, Tag, theme } from 'antd';
+import { Progress, theme } from 'antd';
 
 import { IntlUtil } from '@/utils';
 import type { CalendarKind } from '@/utils';
@@ -23,12 +23,12 @@ interface SubHeroProps {
   lang: string;
 }
 
-const STATUS_TAGS: Record<SubStatus, { color: string; label: string }> = {
-  active: { color: 'green', label: 'subscription.active' },
-  unlimited: { color: 'purple', label: 'subscription.unlimited' },
-  expired: { color: 'red', label: 'subscription.expired' },
-  depleted: { color: 'red', label: 'subscription.depleted' },
-  disabled: { color: 'red', label: 'subscription.inactive' },
+const STATUS_TAGS: Record<SubStatus, { label: string }> = {
+  active: { label: 'subscription.active' },
+  unlimited: { label: 'subscription.unlimited' },
+  expired: { label: 'subscription.expired' },
+  depleted: { label: 'subscription.depleted' },
+  disabled: { label: 'subscription.inactive' },
 };
 
 // FormatTraffic renders "37.60GB"; the amount and unit are sized apart.
@@ -74,7 +74,12 @@ export default function SubHero({
     {
       key: 'status',
       label: t('subscription.status'),
-      value: <Tag color={statusTag.color}>{t(statusTag.label)}</Tag>,
+      value: (
+        <span className={`sub-status-pill sub-status-${status}`}>
+          <span className="sub-status-dot" aria-hidden="true" />
+          {t(statusTag.label)}
+        </span>
+      ),
     },
     { key: 'down', label: t('subscription.downloaded'), value: <bdi>{download}</bdi> },
     { key: 'up', label: t('subscription.uploaded'), value: <bdi>{upload}</bdi> },

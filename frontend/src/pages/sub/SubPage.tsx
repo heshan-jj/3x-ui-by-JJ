@@ -21,7 +21,45 @@ import SubLinksTab from './SubLinksTab';
 import { buildSubApps, daysUntil, detectPlatform, resolveSubStatus } from './subPageModel';
 import './SubPage.css';
 
-const subData = window.__SUB_PAGE_DATA__ || {};
+const DEV_MOCK_SUB_DATA = {
+  sId: 'vip-client-771',
+  enabled: true,
+  subUrl: 'https://v2ray.my-server.net/sub/c9f28a8d-e069-4560-8488-828556bc3aa8',
+  subJsonUrl: 'https://v2ray.my-server.net/sub/c9f28a8d-e069-4560-8488-828556bc3aa8/json',
+  subClashUrl: 'https://v2ray.my-server.net/sub/c9f28a8d-e069-4560-8488-828556bc3aa8/clash',
+  subTitle: 'Premium Ultra Mesh (Node Group A)',
+  subSupportUrl: 'https://t.me/heshan_support',
+  subUpdates: 12,
+  announce:
+    '🚀 Global high-speed mesh nodes upgraded with low-latency routes to Tokyo, Singapore, and Frankfurt.',
+  links: [
+    'vless://b6c16709-3aa9-4f7d-bb62-678c1825c04c@jp1.node.domain:443?type=tcp&security=reality&pbk=xyz&fp=chrome&sni=gateway.icloud.com&sid=abc#Tokyo-Ultra-01',
+    'vless://b6c16709-3aa9-4f7d-bb62-678c1825c04c@sg1.node.domain:443?type=grpc&security=reality&serviceName=grpc-sub&fp=chrome&sni=gateway.icloud.com#Singapore-Direct-02',
+    'vmess://eyJ2IjoiMiIsInBzIjoiRlJLLUZyYW5rZnVydC0wMyIsImFkZCI6ImRlMS5ub2RlLmRvbWFpbiIsInBvcnQiOiI0NDMiLCJpZCI6ImI2YzE2NzA5LTNhYTktNGY3ZC1iYjYyLTY3OGMxODI1YzA0YyIsImFpZCI6IjAiLCJzY3kiOiJhdXRvIiwibmV0Ijoid3MiLCJ0eXBlIjoibm9uZSIsImhvc3QiOiJkZTEubm9kZS5kb21haW4iLCJwYXRoIjoiL3ZtZXNzIiwidGxzIjoidGxzIn0=',
+    'trojan://pass12345@us1.node.domain:443?security=tls&headerType=none&type=tcp&sni=us1.node.domain#US-West-LosAngeles-04',
+  ],
+  emails: ['subscriber@heshan.org'],
+  totalByte: 107374182400, // 100 GB
+  downloadByte: 28991029248, // ~27 GB
+  uploadByte: 7730941132, // ~7.2 GB
+  usedByte: 36721970380, // ~34.2 GB
+  expire: Math.floor((Date.now() + 18 * 86400 * 1000) / 1000), // 18 days left
+  lastOnline: Date.now() - 14 * 60 * 1000,
+  download: '27.00 GB',
+  upload: '7.20 GB',
+  used: '34.20 GB',
+  total: '100.00 GB',
+  remained: '65.80 GB',
+  datepicker: 'gregorian' as const,
+};
+
+const rawData = window.__SUB_PAGE_DATA__;
+const subData =
+  rawData && Object.keys(rawData).length > 0
+    ? rawData
+    : import.meta.env.DEV
+      ? DEV_MOCK_SUB_DATA
+      : {};
 
 const sId = subData.sId || '';
 const subUrl = subData.subUrl || '';
@@ -59,23 +97,6 @@ const heroData = {
 const apps = buildSubApps({ subUrl, sId, subTitle });
 const initialPlatform = detectPlatform(navigator.userAgent);
 const RTL_LANGUAGES = new Set(['fa-IR', 'ar-EG']);
-
-// The sub page runs its own violet accent, so every antd control on it picks the
-// hue up instead of the panel blue useTheme pins. Mirrored in SubPage.css.
-const ACCENT = {
-  light: {
-    primary: '#7c3aed',
-    hover: '#8b5cf6',
-    active: '#6d28d9',
-    rail: 'rgba(124, 58, 237, 0.16)',
-  },
-  dark: {
-    primary: '#a78bfa',
-    hover: '#c4b5fd',
-    active: '#8b5cf6',
-    rail: 'rgba(167, 139, 250, 0.18)',
-  },
-};
 
 export default function SubPage() {
   const { t } = useTranslation();
@@ -150,36 +171,10 @@ export default function SubPage() {
     .filter(Boolean)
     .join(' ');
 
-  const themeConfig = useMemo(() => {
-    const accent = isDark ? ACCENT.dark : ACCENT.light;
-    const primary = {
-      colorPrimary: accent.primary,
-      colorPrimaryHover: accent.hover,
-      colorPrimaryActive: accent.active,
-    };
-    return {
-      ...antdThemeConfig,
-      token: {
-        ...antdThemeConfig.token,
-        ...primary,
-        colorLink: accent.primary,
-        colorInfo: accent.primary,
-      },
-      components: {
-        ...antdThemeConfig.components,
-        Button: { ...antdThemeConfig.components?.Button, ...primary },
-        Progress: { ...antdThemeConfig.components?.Progress, remainingColor: accent.rail },
-      },
-    };
-  }, [antdThemeConfig, isDark]);
-
   return (
-    <ConfigProvider theme={themeConfig} direction={direction}>
+    <ConfigProvider theme={antdThemeConfig} direction={direction}>
       {messageContextHolder}
       <Layout className={pageClass} dir={direction}>
-        <div className="sub-aurora" aria-hidden="true">
-          <span className="sub-aurora-grid" />
-        </div>
         <Layout.Content className="sub-content">
           <Card className="sub-card">
             <SubHeader

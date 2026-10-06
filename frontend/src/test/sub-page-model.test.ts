@@ -75,11 +75,11 @@ describe('detectPlatform', () => {
     ],
     [
       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/17.5 Safari/605.1.15',
-      'ios',
+      'macos',
     ],
     [
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/128.0 Safari/537.36',
-      'android',
+      'windows',
     ],
     ['Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/128.0 Safari/537.36', 'android'],
   ])('%s -> %s', (ua, want) => {
@@ -92,8 +92,8 @@ describe('buildSubApps', () => {
   const encSub = encodeURIComponent(subUrl);
   const sub = { subUrl, sId: 'abc', subTitle: 'Nova Net' };
 
-  it('offers Android and iOS app lists only', () => {
-    expect(Object.keys(buildSubApps(sub))).toEqual(['android', 'ios']);
+  it('offers Android, iOS, Windows, and macOS app lists', () => {
+    expect(Object.keys(buildSubApps(sub))).toEqual(['android', 'ios', 'windows', 'macos']);
   });
 
   it('gives every Android app a one-tap import link', () => {
@@ -101,6 +101,8 @@ describe('buildSubApps', () => {
       { name: 'V2Box', url: `v2box://install-sub?url=${encSub}&name=abc` },
       { name: 'V2RayNG', url: `v2rayng://install-config?url=${encSub}` },
       { name: 'Sing-box', url: `sing-box://import-remote-profile?url=${encSub}#Nova%20Net` },
+      { name: 'NetMod', url: `netmod://import/${subUrl}` },
+      { name: 'Hiddify', url: `hiddify://import/${encSub}` },
       { name: 'V2RayTun', url: `v2raytun://import/${subUrl}` },
       { name: 'Happ', url: `happ://add/${subUrl}` },
       { name: 'Incy', url: `incy://add/${subUrl}` },
@@ -113,6 +115,8 @@ describe('buildSubApps', () => {
       { name: 'Shadowrocket', url: `shadowrocket://add/sub://${rocket}?remark=Nova%20Net` },
       { name: 'V2Box', url: `v2box://install-sub?url=${encSub}&name=abc` },
       { name: 'Streisand', url: `streisand://import/${encSub}` },
+      { name: 'Sing-box', url: `sing-box://import-remote-profile?url=${encSub}#Nova%20Net` },
+      { name: 'Hiddify', url: `hiddify://import/${encSub}` },
       { name: 'V2RayTun', url: `v2raytun://import/${subUrl}` },
       { name: 'Happ', url: `happ://add/${subUrl}` },
       { name: 'Incy', url: `incy://add/${subUrl}` },

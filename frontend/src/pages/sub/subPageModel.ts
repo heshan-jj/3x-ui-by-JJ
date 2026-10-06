@@ -28,11 +28,12 @@ export function usagePercent(usedByte: number, totalByte: number): number {
   return Number.isFinite(pct) ? Math.min(100, Math.max(0, pct)) : 0;
 }
 
-export type AppPlatform = 'android' | 'ios';
+export type AppPlatform = 'android' | 'ios' | 'windows' | 'macos';
 
 export function detectPlatform(userAgent: string): AppPlatform {
-  // iPadOS sends a Macintosh UA, and App Store clients also run on Apple-silicon Macs.
-  if (/iphone|ipad|ipod|macintosh/i.test(userAgent)) return 'ios';
+  if (/windows/i.test(userAgent)) return 'windows';
+  if (/macintosh/i.test(userAgent) && !/ipad/i.test(userAgent)) return 'macos';
+  if (/iphone|ipad|ipod/i.test(userAgent)) return 'ios';
   return 'android';
 }
 
@@ -63,9 +64,19 @@ export function buildSubApps({
     name: 'Sing-box',
     url: `sing-box://import-remote-profile?url=${encSub}#${profileName}`,
   };
+  const netmod = { name: 'NetMod', url: `netmod://import/${subUrl}` };
+  const hiddify = { name: 'Hiddify', url: `hiddify://import/${encSub}` };
   const v2raytun = { name: 'V2RayTun', url: `v2raytun://import/${subUrl}` };
   const happ = { name: 'Happ', url: `happ://add/${subUrl}` };
   const incy = { name: 'Incy', url: `incy://add/${subUrl}` };
+  const clashVerge = {
+    name: 'Clash Verge',
+    url: `clash://install-config?url=${encSub}&name=${profileName}`,
+  };
+  const v2rayn = {
+    name: 'v2rayN',
+    url: `v2rayng://install-config?url=${encSub}`,
+  };
   const rocketSource = `${subUrl}${subUrl.includes('?') ? '&' : '?'}flag=shadowrocket`;
   const rocketRemark = encodeURIComponent(subTitle || sId || 'Subscription');
 
@@ -74,6 +85,8 @@ export function buildSubApps({
       v2box,
       { name: 'V2RayNG', url: `v2rayng://install-config?url=${encSub}` },
       singBox,
+      netmod,
+      hiddify,
       v2raytun,
       happ,
       incy,
@@ -85,9 +98,23 @@ export function buildSubApps({
       },
       v2box,
       { name: 'Streisand', url: `streisand://import/${encSub}` },
+      singBox,
+      hiddify,
       v2raytun,
       happ,
       incy,
+    ],
+    windows: [clashVerge, netmod, v2rayn, singBox, hiddify],
+    macos: [
+      clashVerge,
+      {
+        name: 'Shadowrocket',
+        url: `shadowrocket://add/sub://${btoa(rocketSource)}?remark=${rocketRemark}`,
+      },
+      v2box,
+      { name: 'Streisand', url: `streisand://import/${encSub}` },
+      singBox,
+      hiddify,
     ],
   };
 }
